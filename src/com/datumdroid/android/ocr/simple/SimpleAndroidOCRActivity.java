@@ -27,6 +27,7 @@ import android.widget.EditText;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 public class SimpleAndroidOCRActivity extends Activity {
+	private static final String _DIRECTORY_TRAIN = "tessdata/";
 	public static final String PACKAGE_NAME = "com.datumdroid.android.ocr.simple";
 	public static final String DATA_PATH = Environment
 			.getExternalStorageDirectory().toString() + "/SimpleAndroidOCR/";
@@ -49,7 +50,7 @@ public class SimpleAndroidOCRActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		String[] paths = new String[] { DATA_PATH, DATA_PATH + "tessdata/" };
+		String[] paths = new String[] { DATA_PATH, DATA_PATH + _DIRECTORY_TRAIN };
 
 		for (String path : paths) {
 			File dir = new File(path);
@@ -68,11 +69,11 @@ public class SimpleAndroidOCRActivity extends Activity {
 		// You can get them at:
 		// http://code.google.com/p/tesseract-ocr/downloads/list
 		// This area needs work and optimization
-		if (!(new File(DATA_PATH + "tessdata/" + lang + ".traineddata")).exists()) {
+		if (!(new File(DATA_PATH + _DIRECTORY_TRAIN + lang + ".traineddata")).exists()) {
 			try {
-
+				
 				AssetManager assetManager = getAssets();
-				InputStream in = assetManager.open("tessdata/" + lang + ".traineddata");
+				InputStream in = assetManager.open(_DIRECTORY_TRAIN + lang + ".traineddata");
 				//GZIPInputStream gin = new GZIPInputStream(in);
 				OutputStream out = new FileOutputStream(DATA_PATH
 						+ "tessdata/" + lang + ".traineddata");
